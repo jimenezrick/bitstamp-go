@@ -148,8 +148,8 @@ func privateQuery(path string, values url.Values, v interface{}) error {
 	}
 	e := make(map[string]interface{})
 	err = json.Unmarshal(body, &e)
-	if bsEr, ok := e["error"]; ok {
-		return fmt.Errorf("%v", bsEr)
+	if e["status"] == "error" {
+		return fmt.Errorf("%v", e["reason"])
 	}
 
 	//parse the JSON response into the response object
